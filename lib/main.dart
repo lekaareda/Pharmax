@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const SystemAdminDashboardScreen(),
+    );
+  }
+}
+
+class SystemAdminDashboardScreen extends StatelessWidget {
+  const SystemAdminDashboardScreen({super.key});
       home: const PharmacyAdminDashboardScreen(),
     );
   }
@@ -73,6 +80,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
+                      'System Admin Dashboard',
                       'Pharmacy Admin Dashboard',
                       'Pharmacist Dashboard',
                       'Drug Education',
@@ -102,6 +110,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                               vertical: 18,
                             ),
                             child: const Text(
+                              'System admin',
                               'Pharmacy admin',
                               'Pharmacist dashboard',
                               'Drug education',
@@ -128,6 +137,28 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  const _SystemMetricCard(
+                                    title: 'Active users',
+                                    value: '18,240',
+                                  ),
+                                  const SizedBox(height: 12),
+                                  const _SystemMetricCard(
+                                    title: 'Pharmacies',
+                                    value: '112',
+                                  ),
+                                  const SizedBox(height: 12),
+                                  const _SystemMetricCard(
+                                    title: 'Incidents',
+                                    value: '0',
+                                  ),
+                                  const SizedBox(height: 12),
+                                  const _SystemMetricCard(
+                                    title: 'Avg response',
+                                    value: '< 3s',
+                                  ),
+                                  const SizedBox(height: 120),
+                                  _DashboardActionButton(
+                                    label: 'Manage roles & access',
                                   const _AdminMetricCard(
                                     title: 'Inventory low stock',
                                     value: '7',
@@ -163,6 +194,15 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SystemMetricCard extends StatelessWidget {
+  const _SystemMetricCard({
           ),
         ),
       ),
@@ -425,6 +465,11 @@ class _MetricCard extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: Text(title, style: _fieldTextStyle)),
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(child: Text(title, style: _fieldTextStyle)),
           Text(
             value,
             style: const TextStyle(
@@ -459,6 +504,7 @@ class _MetricCard extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
+          const SizedBox(width: 12),
         ],
       ),
     );
@@ -470,6 +516,55 @@ class _DashboardActionButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
   });
+
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: FilledButton(
+        style: FilledButton.styleFrom(
+          backgroundColor: const Color(0xFF2E7D32),
+          shape: const RoundedRectangleBorder(),
+          padding: const EdgeInsets.symmetric(vertical: 18),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PhoneNotch extends StatelessWidget {
+  const _PhoneNotch();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 52,
+      child: Center(
+        child: Container(
+          width: 180,
+          height: 24,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+}
+
+const _fieldTextStyle = TextStyle(
+  color: Color(0xFF2E2E2E),
+  fontSize: 24,
 
   final String label;
   final VoidCallback onPressed;
