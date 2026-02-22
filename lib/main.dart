@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const PrescriptionArchiveScreen(),
+      home: const OtcSearchScreen(),
     );
   }
 }
 
-class PrescriptionArchiveScreen extends StatelessWidget {
-  const PrescriptionArchiveScreen({super.key});
+class OtcSearchScreen extends StatelessWidget {
+  const OtcSearchScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class PrescriptionArchiveScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Prescription Archive',
+                  'Otc Search',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -50,7 +50,7 @@ class PrescriptionArchiveScreen extends StatelessWidget {
                 color: primaryGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 child: const Text(
-                  'Prescription archive',
+                  'OTC search',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -66,7 +66,7 @@ class PrescriptionArchiveScreen extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 child: const Text(
-                  'Search Rx...',
+                  'Search OTC medicine...',
                   style: TextStyle(
                     color: Color(0xFF7A7A7A),
                     fontSize: 20,
@@ -75,25 +75,31 @@ class PrescriptionArchiveScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              const _ArchiveItem(
-                rxNumber: 'Rx #12931',
-                date: '12 Feb 2026',
-                status: 'Reviewed',
-                statusColor: Color(0xFF2E8B3C),
+              const _OtcItem(
+                title: 'Paracetamol 500mg',
+                subtitle: 'In stock • from 3 pharmacies',
               ),
               const SizedBox(height: 10),
-              const _ArchiveItem(
-                rxNumber: 'Rx #12810',
-                date: '03 Feb 2026',
-                status: 'Delivered',
-                statusColor: Color(0xFF2E8B3C),
+              const _OtcItem(
+                title: 'Cetirizine 10mg',
+                subtitle: 'In stock • delivery today',
               ),
-              const SizedBox(height: 10),
-              const _ArchiveItem(
-                rxNumber: 'Rx #12702',
-                date: '20 Jan 2026',
-                status: 'Expired',
-                statusColor: Color(0xFF8B8B8B),
+              const SizedBox(height: 44),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryGreen,
+                    foregroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  child: const Text(
+                    'Add to cart',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+                  ),
+                ),
               ),
               const Spacer(),
             ],
@@ -104,18 +110,11 @@ class PrescriptionArchiveScreen extends StatelessWidget {
   }
 }
 
-class _ArchiveItem extends StatelessWidget {
-  const _ArchiveItem({
-    required this.rxNumber,
-    required this.date,
-    required this.status,
-    required this.statusColor,
-  });
+class _OtcItem extends StatelessWidget {
+  const _OtcItem({required this.title, required this.subtitle});
 
-  final String rxNumber;
-  final String date;
-  final String status;
-  final Color statusColor;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -125,43 +124,24 @@ class _ArchiveItem extends StatelessWidget {
         border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  rxNumber,
-                  style: const TextStyle(
-                    color: Color(0xFF1F1F1F),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  date,
-                  style: const TextStyle(
-                    color: Color(0xFF333333),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+          Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFF1F1F1F),
+              fontSize: 24,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(width: 8),
-          Padding(
-            padding: const EdgeInsets.only(top: 22),
-            child: Text(
-              status,
-              style: TextStyle(
-                color: statusColor,
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-              ),
+          const SizedBox(height: 6),
+          Text(
+            subtitle,
+            style: const TextStyle(
+              color: Color(0xFF333333),
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],

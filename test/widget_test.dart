@@ -3,23 +3,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pharmax/main.dart';
 
 void main() {
-  testWidgets('Prescription archive screen renders expected sections', (tester) async {
+  testWidgets('OTC search screen renders expected sections', (tester) async {
     await tester.pumpWidget(const PharmaxApp());
 
-    expect(find.text('Prescription Archive'), findsOneWidget);
-    expect(find.text('Prescription archive'), findsOneWidget);
-    expect(find.text('Search Rx...'), findsOneWidget);
+    expect(find.text('Otc Search'), findsOneWidget);
+    expect(find.text('OTC search'), findsOneWidget);
+    expect(find.text('Search OTC medicine...'), findsOneWidget);
 
-    expect(find.text('Rx #12931'), findsOneWidget);
-    expect(find.text('12 Feb 2026'), findsOneWidget);
-    expect(find.text('Reviewed'), findsOneWidget);
+    expect(find.text('Paracetamol 500mg'), findsOneWidget);
+    expect(find.text('In stock • from 3 pharmacies'), findsOneWidget);
 
-    expect(find.text('Rx #12810'), findsOneWidget);
-    expect(find.text('03 Feb 2026'), findsOneWidget);
-    expect(find.text('Delivered'), findsOneWidget);
+    expect(find.text('Cetirizine 10mg'), findsOneWidget);
+    expect(find.text('In stock • delivery today'), findsOneWidget);
 
-    expect(find.text('Rx #12702'), findsOneWidget);
-    expect(find.text('20 Jan 2026'), findsOneWidget);
-    expect(find.text('Expired'), findsOneWidget);
+    expect(find.text('Add to cart'), findsOneWidget);
   });
 }
