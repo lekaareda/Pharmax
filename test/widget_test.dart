@@ -3,17 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pharmax/main.dart';
 
 void main() {
-  testWidgets('Signup OTP screen renders expected sections', (tester) async {
+  testWidgets('Forgot password screen renders expected sections', (tester) async {
     await tester.pumpWidget(const PharmaxApp());
 
-    expect(find.text('Signup Otp'), findsOneWidget);
-    expect(find.text('Create account'), findsOneWidget);
-    expect(find.text('Full name'), findsOneWidget);
-    expect(find.text('Phone number'), findsOneWidget);
-    expect(find.text('Password'), findsOneWidget);
-    expect(find.text('Continue'), findsOneWidget);
-    expect(find.text('OTP verification'), findsOneWidget);
-    expect(find.text('Verify'), findsOneWidget);
+    expect(find.text('Forgot Password'), findsOneWidget);
+    expect(find.text('Reset password'), findsOneWidget);
+    expect(find.text('Enter phone / email'), findsOneWidget);
+    expect(find.text('Send reset code'), findsOneWidget);
+    expect(find.text('New password'), findsOneWidget);
+    expect(find.text('Confirm password'), findsOneWidget);
+    expect(find.text('Update'), findsOneWidget);
     expect(find.byType(TextField), findsNWidgets(3));
   });
 }

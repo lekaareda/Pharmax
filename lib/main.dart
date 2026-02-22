@@ -33,13 +33,13 @@ class PharmaxApp extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
         ),
       ),
-      home: const SignupOtpScreen(),
+      home: const ForgotPasswordScreen(),
     );
   }
 }
 
-class SignupOtpScreen extends StatelessWidget {
-  const SignupOtpScreen({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class SignupOtpScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Signup Otp',
+                  'Forgot Password',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -64,7 +64,7 @@ class SignupOtpScreen extends StatelessWidget {
                 color: primaryGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 child: const Text(
-                  'Create account',
+                  'Reset password',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -72,67 +72,16 @@ class SignupOtpScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 46),
-              const _LabeledField(label: 'Full name', hintText: ''),
+              const SizedBox(height: 64),
+              const _LabeledField(label: 'Enter phone / email', obscureText: false),
+              const SizedBox(height: 16),
+              const _PrimaryButton(label: 'Send reset code'),
+              const SizedBox(height: 58),
+              const _LabeledField(label: 'New password', obscureText: true),
               const SizedBox(height: 24),
-              const _LabeledField(label: 'Phone number', hintText: ''),
+              const _LabeledField(label: 'Confirm password', obscureText: true),
               const SizedBox(height: 24),
-              const _LabeledField(label: 'Password', hintText: ''),
-              const SizedBox(height: 22),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryGreen,
-                    foregroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 50),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'OTP verification',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-                ),
-              ),
-              const SizedBox(height: 12),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  _OtpBox(),
-                  SizedBox(width: 12),
-                  _OtpBox(),
-                  SizedBox(width: 12),
-                  _OtpBox(),
-                  SizedBox(width: 12),
-                  _OtpBox(),
-                ],
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryGreen,
-                    foregroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  child: const Text(
-                    'Verify',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
+              const _PrimaryButton(label: 'Update'),
               const Spacer(),
             ],
           ),
@@ -143,10 +92,10 @@ class SignupOtpScreen extends StatelessWidget {
 }
 
 class _LabeledField extends StatelessWidget {
-  const _LabeledField({required this.label, required this.hintText});
+  const _LabeledField({required this.label, required this.obscureText});
 
   final String label;
-  final String hintText;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -163,24 +112,37 @@ class _LabeledField extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         TextField(
-          obscureText: label == 'Password',
-          decoration: InputDecoration(hintText: hintText),
+          obscureText: obscureText,
+          decoration: const InputDecoration(hintText: ''),
         ),
       ],
     );
   }
 }
 
-class _OtpBox extends StatelessWidget {
-  const _OtpBox();
+class _PrimaryButton extends StatelessWidget {
+  const _PrimaryButton({required this.label});
+
+  final String label;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 56,
-      height: 56,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF979797), width: 2),
+    const primaryGreen = Color(0xFF2E8B3C);
+
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryGreen,
+          foregroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+        ),
+        child: Text(
+          label,
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+        ),
       ),
     );
   }
