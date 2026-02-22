@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const MedicationDetailsScreen(),
+      home: const SmartAssistantInteractionsScreen(),
     );
   }
 }
 
-class MedicationDetailsScreen extends StatelessWidget {
-  const MedicationDetailsScreen({super.key});
+class SmartAssistantInteractionsScreen extends StatelessWidget {
+  const SmartAssistantInteractionsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class MedicationDetailsScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Medication Details',
+                  'Smart Assistant Interactions',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -50,7 +50,7 @@ class MedicationDetailsScreen extends StatelessWidget {
                 color: primaryGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 child: const Text(
-                  'Medicine details',
+                  'Smart assistant',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -58,11 +58,11 @@ class MedicationDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 42),
+              const SizedBox(height: 44),
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Metformin 500mg',
+                  'Interaction check',
                   style: TextStyle(
                     color: Color(0xFF1F1F1F),
                     fontSize: 24,
@@ -70,41 +70,33 @@ class MedicationDetailsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'For: Diabetes type 2',
+              const SizedBox(height: 14),
+              const _InputLikeBox(text: 'Current: Warfarin 5mg'),
+              const SizedBox(height: 12),
+              const _InputLikeBox(text: 'New: Ibuprofen 400mg'),
+              const SizedBox(height: 14),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3E9D7),
+                  border: Border.all(color: const Color(0xFFF0B352), width: 3),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: const Text(
+                  'Warning: Increased bleeding risk.\nAsk pharmacist / use alternative.',
                   style: TextStyle(
-                    color: Color(0xFF7A7A7A),
+                    color: Color(0xFF2F2F2F),
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
-              const _InfoCard(
-                title: 'Dose',
-                body: '1 tablet • twice daily',
-              ),
-              const SizedBox(height: 14),
-              const _InfoCard(
-                title: 'Instructions',
-                body: 'Take with meals',
-              ),
-              const SizedBox(height: 14),
-              const _InfoCard(
-                title: 'Side effects',
-                body: 'Nausea • stomach upset • diarrhea',
-                backgroundColor: Color(0xFFF3E9D7),
-                borderColor: Color(0xFFF0B352),
-              ),
-              const SizedBox(height: 34),
+              const SizedBox(height: 32),
               const Row(
                 children: [
-                  Expanded(child: _PrimaryButton(label: 'Edit schedule')),
+                  Expanded(child: _PrimaryButton(label: 'See alternatives')),
                   SizedBox(width: 12),
-                  Expanded(child: _PrimaryButton(label: 'Ask pharmacist')),
+                  Expanded(child: _PrimaryButton(label: 'Chat pharmacist')),
                 ],
               ),
               const Spacer(),
@@ -116,52 +108,26 @@ class MedicationDetailsScreen extends StatelessWidget {
   }
 }
 
-class _InfoCard extends StatelessWidget {
-  const _InfoCard({
-    required this.title,
-    required this.body,
-    this.backgroundColor,
-    this.borderColor,
-  });
+class _InputLikeBox extends StatelessWidget {
+  const _InputLikeBox({required this.text});
 
-  final String title;
-  final String body;
-  final Color? backgroundColor;
-  final Color? borderColor;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: backgroundColor,
-        border: Border.all(
-          color: borderColor ?? const Color(0xFF8F8F8F),
-          width: 3,
-        ),
+        border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xFF1F1F1F),
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            body,
-            style: const TextStyle(
-              color: Color(0xFF2F2F2F),
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Color(0xFF2F2F2F),
+          fontSize: 22,
+          fontWeight: FontWeight.w500,
+        ),
       ),
     );
   }
