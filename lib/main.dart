@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const PharmacistDashboardScreen(),
+    );
+  }
+}
+
+class PharmacistDashboardScreen extends StatelessWidget {
+  const PharmacistDashboardScreen({super.key});
       home: const DrugEducationScreen(),
     );
   }
@@ -59,6 +66,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
+                      'Pharmacist Dashboard',
                       'Drug Education',
                       'Notifications Center',
                       'Caregiver Linking',
@@ -86,6 +94,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                               vertical: 18,
                             ),
                             child: const Text(
+                              'Pharmacist dashboard',
                               'Drug education',
                               'Notifications',
                               'Caregiver mode',
@@ -110,6 +119,23 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  const _MetricCard(
+                                    title: 'New prescriptions',
+                                    value: '12',
+                                  ),
+                                  const SizedBox(height: 12),
+                                  const _MetricCard(
+                                    title: 'Pending chats',
+                                    value: '5',
+                                  ),
+                                  const SizedBox(height: 12),
+                                  const _MetricCard(
+                                    title: 'Orders to verify',
+                                    value: '9',
+                                  ),
+                                  const SizedBox(height: 56),
+                                  const Text(
+                                    'Today queue',
                                   Container(
                                     width: double.infinity,
                                     padding: const EdgeInsets.symmetric(
@@ -220,6 +246,13 @@ class _NotificationCard extends StatelessWidget {
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
+                                  const SizedBox(height: 12),
+                                  Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 14,
+                                    ),
                                   const SizedBox(height: 26),
                                   const Text(
                                     'Caregiver phone',
@@ -235,6 +268,23 @@ class _NotificationCard extends StatelessWidget {
                                         width: 4,
                                       ),
                                     ),
+                                    child: const Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Rx #12931  •  Review needed',
+                                          style: _fieldTextStyle,
+                                        ),
+                                        SizedBox(height: 10),
+                                        Text(
+                                          'Order #A-5402 •  Substitute approval',
+                                          style: _fieldTextStyle,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 34),
                                     child: const Text(
                                       'Search medicine...',
                                       style: TextStyle(
@@ -269,6 +319,7 @@ class _NotificationCard extends StatelessWidget {
                                       ),
                                       onPressed: () {},
                                       child: const Text(
+                                        'Open prescriptions',
                                         'Watch education video',
                                         'Send invite',
                                         style: TextStyle(
@@ -287,6 +338,54 @@ class _NotificationCard extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MetricCard extends StatelessWidget {
+  const _MetricCard({
+    required this.title,
+    required this.value,
+  });
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(0xFF8D8D8D),
+          width: 4,
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(child: Text(title, style: _fieldTextStyle)),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Color(0xFF2E7D32),
+              fontSize: 30,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
+    );
+  }
+}
+
                 ),
               ),
             ),
