@@ -3,18 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pharmax/main.dart';
 
 void main() {
-  testWidgets('Chronic disease mode screen renders expected elements', (
+  testWidgets('Telepharmacy video call screen renders expected elements', (
     tester,
   ) async {
     await tester.pumpWidget(const PharmaxApp());
 
-    expect(find.text('Chronic Disease Mode'), findsOneWidget);
-    expect(find.text('Chronic mode'), findsOneWidget);
-    expect(find.text('Condition'), findsOneWidget);
-    expect(find.text('Diabetes type 2'), findsOneWidget);
-    expect(find.text('Upcoming tests'), findsOneWidget);
-    expect(find.text('HbA1c test  •  due 20 Feb 2026'), findsOneWidget);
-    expect(find.text('Fasting glucose  •  weekly'), findsOneWidget);
-    expect(find.text('Set reminders'), findsOneWidget);
+    expect(find.text('Telepharmacy Video Call'), findsOneWidget);
+    expect(find.text('Video consultation'), findsOneWidget);
+    expect(find.text('Video feed'), findsOneWidget);
+    expect(find.text('You'), findsOneWidget);
+    expect(find.text('Mute'), findsOneWidget);
+    expect(find.text('Camera'), findsOneWidget);
+    expect(find.text('Share Rx'), findsOneWidget);
+    expect(find.text('End'), findsOneWidget);
   });
 }
