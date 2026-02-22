@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const HealthRecordsScreen(),
+    );
+  }
+}
+
+class HealthRecordsScreen extends StatelessWidget {
+  const HealthRecordsScreen({super.key});
       home: const InsuranceScreen(),
     );
   }
@@ -125,6 +132,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: const Center(
                           child: Text(
+                            'Health Records',
                             'Insurance',
                             'Compare Pharmacies',
                             'Symptom Check',
@@ -150,6 +158,37 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(86, 28, 86, 50),
                         child: Column(
                           children: [
+                            const _RecordsTabs(),
+                            const SizedBox(height: 70),
+                            SizedBox(
+                              width: double.infinity,
+                              child: FilledButton(
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: const Color(0xFF008A00),
+                                  shape: const RoundedRectangleBorder(),
+                                  padding: const EdgeInsets.symmetric(vertical: 18),
+                                ),
+                                onPressed: () {},
+                                child: const Text(
+                                  'Upload PDF',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 42,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 52),
+                            const _RecordTile(label: 'Lab results 20 Feb'),
+                            const SizedBox(height: 18),
+                            const _RecordTile(label: 'Rx 12 Feb'),
+                            const SizedBox(height: 18),
+                            const _RecordTile(label: 'BP reading 120/80'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 780),
                             const _InsuranceInfoRow(
                               label: 'Provider',
                               value: 'Axa',
@@ -282,6 +321,63 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _RecordsTabs extends StatelessWidget {
+  const _RecordsTabs();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            color: const Color(0xFF008A00),
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: const Center(
+              child: Text(
+                'Labs',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 38,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: const Color(0xFFE8E8E8),
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: const Center(
+              child: Text(
+                'Rx',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 38,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            color: const Color(0xFFE8E8E8),
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: const Center(
+              child: Text(
+                'Vitals',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 38,
+                  fontWeight: FontWeight.w700,
           ),
         ),
       ),
@@ -1046,11 +1142,15 @@ class _RewardsProgress extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
 
+class _RecordTile extends StatelessWidget {
+  const _RecordTile({required this.label});
+
+  final String label;
 class _MetricCard extends StatelessWidget {
   const _MetricCard({
     required this.title,
@@ -1088,6 +1188,18 @@ class _BottomNavItem extends StatelessWidget {
         label,
         style: const TextStyle(
           color: Colors.black,
+          fontSize: 40,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({required this.letter, required this.label});
+
+  final String letter;
           fontSize: 42,
           fontWeight: FontWeight.w500,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -1247,7 +1359,7 @@ class _PromoCodeField extends StatelessWidget {
           color: Color(0xFF7F8A95),
           fontSize: 38,
         ),
-      ),
+      ],
     );
   }
 }
