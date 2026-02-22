@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const ProfileSettingsScreen(),
+    );
+  }
+}
+
+class ProfileSettingsScreen extends StatelessWidget {
+  const ProfileSettingsScreen({super.key});
       home: const AccessibilityScreen(),
     );
   }
@@ -143,6 +150,13 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                       Container(
                         width: double.infinity,
                         color: const Color(0xFF008A00),
+                        padding: const EdgeInsets.symmetric(vertical: 22),
+                        child: const Center(
+                          child: Text(
+                            'Profile & settings',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 46,
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: const Center(
                           child: Text(
@@ -161,6 +175,28 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         ),
                       ),
                       const Padding(
+                        padding: EdgeInsets.fromLTRB(86, 42, 86, 0),
+                        child: _ProfileCard(),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(86, 24, 86, 40),
+                        child: Column(
+                          children: [
+                            _SettingsRow(label: 'Language'),
+                            SizedBox(height: 18),
+                            _SettingsRow(label: 'Accessibility (Large text)'),
+                            SizedBox(height: 18),
+                            _SettingsRow(label: 'Privacy'),
+                            SizedBox(height: 18),
+                            _SettingsRow(label: 'Payment methods'),
+                            SizedBox(height: 18),
+                            _SettingsRow(label: 'Notifications'),
+                            SizedBox(height: 18),
+                            _SettingsRow(label: 'Help & support'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 680),
                         padding: EdgeInsets.fromLTRB(20, 14, 20, 0),
                         child: Text(
                           'lekaa reda',
@@ -362,6 +398,15 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileCard extends StatelessWidget {
+  const _ProfileCard();
           ),
         ),
       ),
@@ -580,6 +625,38 @@ class _ProgressPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      color: const Color(0xFFE8E8E8),
+      padding: const EdgeInsets.fromLTRB(24, 20, 24, 22),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Lekaa Reda',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            'Patient • Verified phone',
+            style: TextStyle(
+              color: Color(0xFF7F8A95),
+              fontSize: 28,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SettingsRow extends StatelessWidget {
+  const _SettingsRow({required this.label});
+
+  final String label;
       width: 90,
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
@@ -988,11 +1065,23 @@ class _NotificationCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: const Color(0xFFE8E8E8),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       child: Text(
         label,
         style: const TextStyle(
           color: Colors.black,
+          fontSize: 38,
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({required this.letter, required this.label});
+
+  final String letter;
           fontSize: 42,
           fontWeight: FontWeight.w700,
         ),
@@ -1125,6 +1214,22 @@ class _AccessibilityOptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          letter,
+          style: const TextStyle(
+            color: Color(0xFF008A00),
+            fontSize: 44,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+          ),
     return Row(
       children: [
         Expanded(
@@ -1289,7 +1394,7 @@ class _MetricCard extends StatelessWidget {
           fontSize: 40,
           fontWeight: FontWeight.w500,
         ),
-      ),
+      ],
     );
   }
 }
