@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const OtcSearchScreen(),
+      home: const OrderMedicinesScreen(),
     );
   }
 }
 
-class OtcSearchScreen extends StatelessWidget {
-  const OtcSearchScreen({super.key});
+class OrderMedicinesScreen extends StatelessWidget {
+  const OrderMedicinesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class OtcSearchScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Otc Search',
+                  'Order Medicines',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -48,25 +48,27 @@ class OtcSearchScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 color: primaryGreen,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-                child: const Text(
-                  'OTC search',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: const Center(
+                  child: Text(
+                    'Order Medicines',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 72),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
+                  border: Border.all(color: const Color(0xFFB0B0B0), width: 3),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 child: const Text(
-                  'Search OTC medicine...',
+                  'Search medicines...',
                   style: TextStyle(
                     color: Color(0xFF7A7A7A),
                     fontSize: 20,
@@ -74,34 +76,22 @@ class OtcSearchScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
-              const _OtcItem(
-                title: 'Paracetamol 500mg',
-                subtitle: 'In stock • from 3 pharmacies',
-              ),
+              const SizedBox(height: 8),
+              const _OrderItem(name: 'Paracetamol 500mg', category: 'OTC', price: '\$5'),
               const SizedBox(height: 10),
-              const _OtcItem(
-                title: 'Cetirizine 10mg',
-                subtitle: 'In stock • delivery today',
-              ),
-              const SizedBox(height: 44),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryGreen,
-                    foregroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  child: const Text(
-                    'Add to cart',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ),
+              const _OrderItem(name: 'Aspirin', category: 'OTC', price: '\$4'),
+              const SizedBox(height: 10),
+              const _OrderItem(name: 'Ibuprofen', category: 'OTC', price: '\$6'),
               const Spacer(),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _BottomItem(iconText: 'H', label: 'Home'),
+                  _BottomItem(iconText: 'O', label: 'Orders'),
+                  _BottomItem(iconText: 'C', label: 'Chat'),
+                  _BottomItem(iconText: 'P', label: 'Profile'),
+                ],
+              ),
             ],
           ),
         ),
@@ -110,42 +100,127 @@ class OtcSearchScreen extends StatelessWidget {
   }
 }
 
-class _OtcItem extends StatelessWidget {
-  const _OtcItem({required this.title, required this.subtitle});
+class _OrderItem extends StatelessWidget {
+  const _OrderItem({
+    required this.name,
+    required this.category,
+    required this.price,
+  });
 
-  final String title;
-  final String subtitle;
+  final String name;
+  final String category;
+  final String price;
 
   @override
   Widget build(BuildContext context) {
+    const primaryGreen = Color(0xFF2E8B3C);
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
+        border: Border.all(color: const Color(0xFFD2D2D2), width: 3),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      child: Row(
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xFF1F1F1F),
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
+          const CircleAvatar(
+            radius: 34,
+            backgroundColor: Color(0xFFA9D6A9),
+            child: Text(
+              'M',
+              style: TextStyle(
+                color: primaryGreen,
+                fontSize: 26,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    color: Color(0xFF2F2F2F),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  category,
+                  style: const TextStyle(
+                    color: Color(0xFF6F6F6F),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
           Text(
-            subtitle,
+            price,
             style: const TextStyle(
-              color: Color(0xFF333333),
-              fontSize: 20,
+              color: Color(0xFF2F2F2F),
+              fontSize: 22,
               fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Container(
+            width: 48,
+            height: 48,
+            color: primaryGreen,
+            child: const Center(
+              child: Text(
+                '+',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 34,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _BottomItem extends StatelessWidget {
+  const _BottomItem({required this.iconText, required this.label});
+
+  final String iconText;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    const primaryGreen = Color(0xFF2E8B3C);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          iconText,
+          style: const TextStyle(
+            color: primaryGreen,
+            fontSize: 30,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            color: primaryGreen,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }
