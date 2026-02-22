@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const AccessibilityScreen(),
+    );
+  }
+}
+
+class AccessibilityScreen extends StatelessWidget {
+  const AccessibilityScreen({super.key});
       home: const EmergencyScreen(),
     );
   }
@@ -139,6 +146,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: const Center(
                           child: Text(
+                            'Accessibility',
                             'Emergency',
                             'Health Records',
                             'Insurance',
@@ -162,6 +170,19 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(90, 54, 90, 40),
+                        child: Column(
+                          children: [
+                            _AccessibilityOptionRow(label: 'Large text'),
+                            SizedBox(height: 30),
+                            _AccessibilityOptionRow(label: 'Voice reminders'),
+                            SizedBox(height: 30),
+                            _AccessibilityOptionRow(label: 'One-tap reorder'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 980),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(86, 42, 86, 50),
                         child: Column(
@@ -1097,6 +1118,40 @@ class _RewardsProgress extends StatelessWidget {
   }
 }
 
+class _AccessibilityOptionRow extends StatelessWidget {
+  const _AccessibilityOptionRow({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(width: 24),
+        Container(
+          width: 52,
+          height: 52,
+          color: const Color(0xFF008A00),
+        ),
+      ],
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({required this.letter, required this.label});
+
+  final String letter;
                                 children: [
                                   const Text(
                                     'Link caregiver',
@@ -1336,6 +1391,11 @@ class _RewardOptionTile extends StatelessWidget {
             color: Colors.black,
             fontSize: 24,
           ),
+        ),
+      ],
+    );
+  }
+}
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 20),
