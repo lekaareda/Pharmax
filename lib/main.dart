@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const OrderMedicinesScreen(),
+      home: const OrderTrackingPaymentScreen(),
     );
   }
 }
 
-class OrderMedicinesScreen extends StatelessWidget {
-  const OrderMedicinesScreen({super.key});
+class OrderTrackingPaymentScreen extends StatelessWidget {
+  const OrderTrackingPaymentScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class OrderMedicinesScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Order Medicines',
+                  'Order Tracking Payment',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -48,50 +48,69 @@ class OrderMedicinesScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 color: primaryGreen,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: const Center(
-                  child: Text(
-                    'Order Medicines',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                    ),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                child: const Text(
+                  'Order tracking',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
-              const SizedBox(height: 72),
+              const SizedBox(height: 28),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Order #A-5402',
+                  style: TextStyle(
+                    color: Color(0xFF1F1F1F),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              const _StatusStep(label: 'Confirmed', complete: true),
+              const SizedBox(height: 20),
+              const _StatusStep(label: 'Preparing', complete: true),
+              const SizedBox(height: 20),
+              const _StatusStep(label: 'Out for delivery', complete: false),
+              const SizedBox(height: 20),
+              const _StatusStep(label: 'Delivered', complete: false),
+              const SizedBox(height: 10),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Payment',
+                  style: TextStyle(
+                    color: Color(0xFF1F1F1F),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 6),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFFB0B0B0), width: 3),
+                  border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 child: const Text(
-                  'Search medicines...',
+                  'Method: Cash on delivery',
                   style: TextStyle(
-                    color: Color(0xFF7A7A7A),
+                    color: Color(0xFF2F2F2F),
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
               const SizedBox(height: 8),
-              const _OrderItem(name: 'Paracetamol 500mg', category: 'OTC', price: '\$5'),
-              const SizedBox(height: 10),
-              const _OrderItem(name: 'Aspirin', category: 'OTC', price: '\$4'),
-              const SizedBox(height: 10),
-              const _OrderItem(name: 'Ibuprofen', category: 'OTC', price: '\$6'),
+              const _PrimaryButton(label: 'Switch to Online payment'),
+              const SizedBox(height: 30),
+              const _PrimaryButton(label: 'Contact pharmacy'),
               const Spacer(),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _BottomItem(iconText: 'H', label: 'Home'),
-                  _BottomItem(iconText: 'O', label: 'Orders'),
-                  _BottomItem(iconText: 'C', label: 'Chat'),
-                  _BottomItem(iconText: 'P', label: 'Profile'),
-                ],
-              ),
             ],
           ),
         ),
@@ -100,127 +119,65 @@ class OrderMedicinesScreen extends StatelessWidget {
   }
 }
 
-class _OrderItem extends StatelessWidget {
-  const _OrderItem({
-    required this.name,
-    required this.category,
-    required this.price,
-  });
+class _StatusStep extends StatelessWidget {
+  const _StatusStep({required this.label, required this.complete});
 
-  final String name;
-  final String category;
-  final String price;
+  final String label;
+  final bool complete;
 
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
 
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFD2D2D2), width: 3),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 34,
-            backgroundColor: Color(0xFFA9D6A9),
-            child: Text(
-              'M',
-              style: TextStyle(
-                color: primaryGreen,
-                fontSize: 26,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+    return Row(
+      children: [
+        Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: complete ? primaryGreen : Colors.transparent,
+            border: Border.all(color: primaryGreen, width: 3),
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  style: const TextStyle(
-                    color: Color(0xFF2F2F2F),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  category,
-                  style: const TextStyle(
-                    color: Color(0xFF6F6F6F),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        const SizedBox(width: 16),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Color(0xFF2F2F2F),
+            fontSize: 22,
+            fontWeight: FontWeight.w500,
           ),
-          const SizedBox(width: 8),
-          Text(
-            price,
-            style: const TextStyle(
-              color: Color(0xFF2F2F2F),
-              fontSize: 22,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(width: 10),
-          Container(
-            width: 48,
-            height: 48,
-            color: primaryGreen,
-            child: const Center(
-              child: Text(
-                '+',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 34,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
 
-class _BottomItem extends StatelessWidget {
-  const _BottomItem({required this.iconText, required this.label});
+class _PrimaryButton extends StatelessWidget {
+  const _PrimaryButton({required this.label});
 
-  final String iconText;
   final String label;
 
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          iconText,
-          style: const TextStyle(
-            color: primaryGreen,
-            fontSize: 30,
-            fontWeight: FontWeight.w500,
-          ),
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryGreen,
+          foregroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(),
+          padding: const EdgeInsets.symmetric(vertical: 16),
         ),
-        Text(
+        child: Text(
           label,
-          style: const TextStyle(
-            color: primaryGreen,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
         ),
-      ],
+      ),
     );
   }
 }
