@@ -10,7 +10,6 @@ class PharmaxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
-    const borderGray = Color(0xFF979797);
 
     return MaterialApp(
       title: 'Smart Pharmacy',
@@ -19,27 +18,14 @@ class PharmaxApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
-        inputDecorationTheme: const InputDecorationTheme(
-          isDense: true,
-          hintStyle: TextStyle(color: Color(0xFF6D6D6D), fontSize: 16),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderGray, width: 2),
-            borderRadius: BorderRadius.zero,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: borderGray, width: 2),
-            borderRadius: BorderRadius.zero,
-          ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-        ),
       ),
-      home: const ForgotPasswordScreen(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +40,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Forgot Password',
+                  'Home Screen',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -62,27 +48,52 @@ class ForgotPasswordScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 color: primaryGreen,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-                child: const Text(
-                  'Reset password',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: const Center(
+                  child: Text(
+                    'Home',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 64),
-              const _LabeledField(label: 'Enter phone / email', obscureText: false),
-              const SizedBox(height: 16),
-              const _PrimaryButton(label: 'Send reset code'),
-              const SizedBox(height: 58),
-              const _LabeledField(label: 'New password', obscureText: true),
-              const SizedBox(height: 24),
-              const _LabeledField(label: 'Confirm password', obscureText: true),
-              const SizedBox(height: 24),
-              const _PrimaryButton(label: 'Update'),
+              const SizedBox(height: 28),
+              const Row(
+                children: [
+                  Expanded(
+                    child: _FeatureCard(initial: 'U', label: 'Upload Rx'),
+                  ),
+                  SizedBox(width: 24),
+                  Expanded(
+                    child: _FeatureCard(initial: 'O', label: 'Order'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 26),
+              const Row(
+                children: [
+                  Expanded(
+                    child: _FeatureCard(initial: 'S', label: 'Schedule'),
+                  ),
+                  SizedBox(width: 24),
+                  Expanded(
+                    child: _FeatureCard(initial: 'T', label: 'Telepharmacy'),
+                  ),
+                ],
+              ),
               const Spacer(),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _BottomItem(iconText: 'H', label: 'Home'),
+                  _BottomItem(iconText: 'O', label: 'Orders'),
+                  _BottomItem(iconText: 'C', label: 'Chat'),
+                  _BottomItem(iconText: 'P', label: 'Profile'),
+                ],
+              ),
             ],
           ),
         ),
@@ -91,59 +102,86 @@ class ForgotPasswordScreen extends StatelessWidget {
   }
 }
 
-class _LabeledField extends StatelessWidget {
-  const _LabeledField({required this.label, required this.obscureText});
+class _FeatureCard extends StatelessWidget {
+  const _FeatureCard({required this.initial, required this.label});
 
-  final String label;
-  final bool obscureText;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF2F2F2F),
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(height: 10),
-        TextField(
-          obscureText: obscureText,
-          decoration: const InputDecoration(hintText: ''),
-        ),
-      ],
-    );
-  }
-}
-
-class _PrimaryButton extends StatelessWidget {
-  const _PrimaryButton({required this.label});
-
+  final String initial;
   final String label;
 
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
 
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryGreen,
-          foregroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-        ),
-        child: Text(
-          label,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+    return Container(
+      height: 168,
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFFD2D2D2), width: 3),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 16, left: 14, right: 8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 34,
+              backgroundColor: const Color(0xFFA9D6A9),
+              child: Text(
+                initial,
+                style: const TextStyle(
+                  fontSize: 28,
+                  color: primaryGreen,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                label,
+                style: const TextStyle(
+                  color: Color(0xFF2F2F2F),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class _BottomItem extends StatelessWidget {
+  const _BottomItem({required this.iconText, required this.label});
+
+  final String iconText;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    const primaryGreen = Color(0xFF2E8B3C);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          iconText,
+          style: const TextStyle(
+            color: primaryGreen,
+            fontSize: 30,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            color: primaryGreen,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }

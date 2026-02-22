@@ -1,18 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:pharmax/main.dart';
 
 void main() {
-  testWidgets('Forgot password screen renders expected sections', (tester) async {
+  testWidgets('Home screen renders expected sections', (tester) async {
     await tester.pumpWidget(const PharmaxApp());
 
-    expect(find.text('Forgot Password'), findsOneWidget);
-    expect(find.text('Reset password'), findsOneWidget);
-    expect(find.text('Enter phone / email'), findsOneWidget);
-    expect(find.text('Send reset code'), findsOneWidget);
-    expect(find.text('New password'), findsOneWidget);
-    expect(find.text('Confirm password'), findsOneWidget);
-    expect(find.text('Update'), findsOneWidget);
-    expect(find.byType(TextField), findsNWidgets(3));
+    expect(find.text('Home Screen'), findsOneWidget);
+    expect(find.text('Home'), findsWidgets);
+    expect(find.text('Upload Rx'), findsOneWidget);
+    expect(find.text('Order'), findsOneWidget);
+    expect(find.text('Schedule'), findsOneWidget);
+    expect(find.text('Telepharmacy'), findsOneWidget);
+    expect(find.text('Orders'), findsOneWidget);
+    expect(find.text('Chat'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+    expect(find.byType(CircleAvatar), findsNWidgets(4));
   });
 }
