@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const DrugEducationScreen(),
+    );
+  }
+}
+
+class DrugEducationScreen extends StatelessWidget {
+  const DrugEducationScreen({super.key});
       home: const NotificationsCenterScreen(),
     );
   }
@@ -52,6 +59,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
+                      'Drug Education',
                       'Notifications Center',
                       'Caregiver Linking',
                       'Telepharmacy Video Call',
@@ -78,6 +86,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                               vertical: 18,
                             ),
                             child: const Text(
+                              'Drug education',
                               'Notifications',
                               'Caregiver mode',
                               horizontal: 26,
@@ -100,6 +109,13 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                               height: 1040,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 9,
+                                    ),
                                 children: const [
                                   _NotificationCard(
                                     title: 'Dose reminder',
@@ -219,6 +235,26 @@ class _NotificationCard extends StatelessWidget {
                                         width: 4,
                                       ),
                                     ),
+                                    child: const Text(
+                                      'Search medicine...',
+                                      style: TextStyle(
+                                        color: Color(0xFF858585),
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  const _DrugCard(
+                                    title: 'Amoxicillin',
+                                    details: 'Usage • Side effects • Video',
+                                  ),
+                                  const SizedBox(height: 12),
+                                  const _DrugCard(
+                                    title: 'Metformin',
+                                    details: 'How to take • Warnings',
+                                  ),
+                                  const SizedBox(height: 34),
                                   ),
                                   const SizedBox(height: 24),
                                   SizedBox(
@@ -233,6 +269,7 @@ class _NotificationCard extends StatelessWidget {
                                       ),
                                       onPressed: () {},
                                       child: const Text(
+                                        'Watch education video',
                                         'Send invite',
                                         style: TextStyle(
                                           color: Colors.white,
@@ -242,6 +279,63 @@ class _NotificationCard extends StatelessWidget {
                                       ),
                                     ),
                                   ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DrugCard extends StatelessWidget {
+  const _DrugCard({
+    required this.title,
+    required this.details,
+  });
+
+  final String title;
+  final String details;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(0xFF8D8D8D),
+          width: 4,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Color(0xFF1F1F1F),
+              fontSize: 28,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(details, style: _fieldTextStyle),
+        ],
+      ),
+    );
+  }
+}
+
                                   const SizedBox(height: 36),
                                   const Text(
                                     'Notifications to caregiver',
