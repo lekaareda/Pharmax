@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const EmergencyScreen(),
+    );
+  }
+}
+
+class EmergencyScreen extends StatelessWidget {
+  const EmergencyScreen({super.key});
       home: const HealthRecordsScreen(),
     );
   }
@@ -132,6 +139,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: const Center(
                           child: Text(
+                            'Emergency',
                             'Health Records',
                             'Insurance',
                             'Compare Pharmacies',
@@ -155,6 +163,18 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
+                        padding: const EdgeInsets.fromLTRB(86, 42, 86, 50),
+                        child: Column(
+                          children: [
+                            const _EmergencyActionTile(label: 'Call ambulance'),
+                            const SizedBox(height: 18),
+                            const _EmergencyActionTile(label: 'Nearest 24/7 pharmacy'),
+                            const SizedBox(height: 18),
+                            const _EmergencyActionTile(label: 'Share location'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 990),
                         padding: const EdgeInsets.fromLTRB(86, 28, 86, 50),
                         child: Column(
                           children: [
@@ -717,6 +737,10 @@ class _SymptomOptionTile extends StatelessWidget {
   }
 }
 
+class _EmergencyActionTile extends StatelessWidget {
+  const _EmergencyActionTile({required this.label});
+
+  final String label;
 class _PointsCard extends StatelessWidget {
   const _PointsCard();
       ),
@@ -943,6 +967,43 @@ class _NotificationCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: const Color(0xFFE8E8E8),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 42,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({required this.letter, required this.label});
+
+  final String letter;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          letter,
+          style: const TextStyle(
+            color: Color(0xFF008A00),
+            fontSize: 44,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+          ),
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 20),
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1191,7 +1252,7 @@ class _BottomNavItem extends StatelessWidget {
           fontSize: 40,
           fontWeight: FontWeight.w500,
         ),
-      ),
+      ],
     );
   }
 }
