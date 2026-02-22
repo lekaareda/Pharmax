@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const SmartAssistantInteractionsScreen(),
+      home: const TelepharmacyChatScreen(),
     );
   }
 }
 
-class SmartAssistantInteractionsScreen extends StatelessWidget {
-  const SmartAssistantInteractionsScreen({super.key});
+class TelepharmacyChatScreen extends StatelessWidget {
+  const TelepharmacyChatScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class SmartAssistantInteractionsScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Smart Assistant Interactions',
+                  'Telepharmacy Chat',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -50,7 +50,7 @@ class SmartAssistantInteractionsScreen extends StatelessWidget {
                 color: primaryGreen,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
                 child: const Text(
-                  'Smart assistant',
+                  'Chat with pharmacist',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -58,48 +58,70 @@ class SmartAssistantInteractionsScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 44),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Interaction check',
+              const SizedBox(height: 36),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: const Text(
+                  'Dr. Salma (Online)',
                   style: TextStyle(
                     color: Color(0xFF1F1F1F),
-                    fontSize: 24,
+                    fontSize: 22,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
-              const _InputLikeBox(text: 'Current: Warfarin 5mg'),
+              const SizedBox(height: 34),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: _ChatBubble(
+                  text: 'Hello, how can I help?',
+                  isUser: false,
+                ),
+              ),
+              const SizedBox(height: 18),
+              const Align(
+                alignment: Alignment.centerRight,
+                child: _ChatBubble(
+                  text: 'Is this medicine safe\nwith my condition?',
+                  isUser: true,
+                ),
+              ),
+              const SizedBox(height: 18),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: _ChatBubble(
+                  text: 'Please share your Rx and\ncurrent meds.',
+                  isUser: false,
+                ),
+              ),
+              const Spacer(),
+              const Row(
+                children: [
+                  Expanded(child: _PrimaryButton(label: 'Voice call')),
+                  SizedBox(width: 12),
+                  Expanded(child: _PrimaryButton(label: 'Video call')),
+                ],
+              ),
               const SizedBox(height: 12),
-              const _InputLikeBox(text: 'New: Ibuprofen 400mg'),
-              const SizedBox(height: 14),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF3E9D7),
-                  border: Border.all(color: const Color(0xFFF0B352), width: 3),
+                  border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 child: const Text(
-                  'Warning: Increased bleeding risk.\nAsk pharmacist / use alternative.',
+                  'Type message...',
                   style: TextStyle(
-                    color: Color(0xFF2F2F2F),
+                    color: Color(0xFF7A7A7A),
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
-              const Row(
-                children: [
-                  Expanded(child: _PrimaryButton(label: 'See alternatives')),
-                  SizedBox(width: 12),
-                  Expanded(child: _PrimaryButton(label: 'Chat pharmacist')),
-                ],
-              ),
-              const Spacer(),
             ],
           ),
         ),
@@ -108,24 +130,23 @@ class SmartAssistantInteractionsScreen extends StatelessWidget {
   }
 }
 
-class _InputLikeBox extends StatelessWidget {
-  const _InputLikeBox({required this.text});
+class _ChatBubble extends StatelessWidget {
+  const _ChatBubble({required this.text, required this.isUser});
 
   final String text;
+  final bool isUser;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      width: isUser ? 410 : 310,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      color: isUser ? const Color(0xFFA9D6A9) : const Color(0xFFEAEAEA),
       child: Text(
         text,
         style: const TextStyle(
           color: Color(0xFF2F2F2F),
-          fontSize: 22,
+          fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
       ),
