@@ -16,6 +16,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFEFEFEF),
         fontFamily: 'Roboto',
       ),
+      home: const InsuranceScreen(),
+    );
+  }
+}
+
+class InsuranceScreen extends StatelessWidget {
+  const InsuranceScreen({super.key});
       home: const ComparePharmaciesScreen(),
     );
   }
@@ -118,6 +125,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 20),
                         child: const Center(
                           child: Text(
+                            'Insurance',
                             'Compare Pharmacies',
                             'Symptom Check',
                             style: TextStyle(
@@ -141,6 +149,28 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(86, 28, 86, 50),
                         child: Column(
+                          children: [
+                            const _InsuranceInfoRow(
+                              label: 'Provider',
+                              value: 'Axa',
+                            ),
+                            const SizedBox(height: 18),
+                            const _InsuranceInfoRow(
+                              label: 'Card #',
+                              value: '1234 5678 9012',
+                            ),
+                            const SizedBox(height: 18),
+                            const _InsuranceInfoRow(
+                              label: 'Coverage',
+                              value: '80%',
+                            ),
+                            const SizedBox(height: 40),
+                            const _UseInsuranceRow(),
+                            const SizedBox(height: 18),
+                            const _RemainingToPayRow(),
+                            const SizedBox(height: 56),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40),
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
@@ -217,6 +247,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                                   ),
                                   onPressed: () {},
                                   child: const Text(
+                                    'Verify',
                                     'Select',
                                     'Continue',
                                     style: TextStyle(
@@ -231,6 +262,7 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
                           ],
                         ),
                       ),
+                      const SizedBox(height: 580),
                       const SizedBox(height: 270),
                       const SizedBox(height: 320),
                       const Padding(
@@ -257,6 +289,28 @@ class TelepharmacyVideoCallScreen extends StatelessWidget {
   }
 }
 
+class _InsuranceInfoRow extends StatelessWidget {
+  const _InsuranceInfoRow({
+    required this.label,
+    required this.value,
+  });
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: const Color(0xFFE8E8E8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: Color(0xFF7F8A95),
 class _PharmacyRow extends StatelessWidget {
   const _PharmacyRow({
     required this.name,
@@ -285,6 +339,64 @@ class _PharmacyRow extends StatelessWidget {
               ),
             ),
           ),
+          Text(
+            value,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 40,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(width: 12),
+        ],
+      ),
+    );
+  }
+}
+
+class _UseInsuranceRow extends StatelessWidget {
+  const _UseInsuranceRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: const Color(0xFFE8E8E8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      child: Row(
+        children: [
+          const Expanded(
+            child: Text(
+              'Use insurance',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 40,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Container(
+            width: 120,
+            height: 50,
+            color: const Color(0xFFEFEFEF),
+            padding: const EdgeInsets.all(6),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                width: 50,
+                color: const Color(0xFF008A00),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+        ],
+      ),
+    );
+  }
+}
+
+class _RemainingToPayRow extends StatelessWidget {
+  const _RemainingToPayRow();
           Expanded(
             flex: 2,
             child: Text(
@@ -952,6 +1064,24 @@ class _MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      color: const Color(0xFFE8E8E8),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+      child: const Text(
+        'Remaining to pay: \$20',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 40,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({required this.letter, required this.label});
+
+  final String letter;
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
       color: const Color(0xFFE8E8E8),
       child: Text(
@@ -1017,6 +1147,22 @@ class _RewardOptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          letter,
+          style: const TextStyle(
+            color: Color(0xFF008A00),
+            fontSize: 44,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+          ),
     return Container(
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -1035,7 +1181,7 @@ class _RewardOptionTile extends StatelessWidget {
           fontSize: 42,
           fontWeight: FontWeight.w500,
         ),
-      ),
+      ],
     );
   }
 }
