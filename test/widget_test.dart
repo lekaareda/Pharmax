@@ -3,17 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pharmax/main.dart';
 
 void main() {
-  testWidgets('Prescription upload screen renders expected sections', (tester) async {
+  testWidgets('Prescription status screen renders expected sections', (tester) async {
     await tester.pumpWidget(const PharmaxApp());
 
-    expect(find.text('Prescription Upload'), findsOneWidget);
-    expect(find.text('Upload Prescription'), findsOneWidget);
-    expect(find.text('Upload your prescription image or PDF'), findsOneWidget);
-    expect(find.text('Browse to upload'), findsOneWidget);
-    expect(find.text('Upload'), findsOneWidget);
-    expect(find.text('Home'), findsOneWidget);
-    expect(find.text('Orders'), findsOneWidget);
-    expect(find.text('Chat'), findsOneWidget);
-    expect(find.text('Profile'), findsOneWidget);
+    expect(find.text('Prescription Status Review'), findsOneWidget);
+    expect(find.text('Prescription status'), findsOneWidget);
+    expect(find.text('Rx #12931'), findsOneWidget);
+    expect(find.text('Uploaded: 12 Feb 2026'), findsOneWidget);
+    expect(find.text('Under review'), findsOneWidget);
+    expect(find.text('Pharmacist notes'), findsOneWidget);
+    expect(find.text('- Verify allergy history\n- Confirm dosage'), findsOneWidget);
+    expect(find.text('Approve & create order'), findsOneWidget);
   });
 }
