@@ -13,158 +13,153 @@ class PharmaxApp extends StatelessWidget {
       title: 'Pharmax',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF00A6A6)),
-        scaffoldBackgroundColor: const Color(0xFFF5F7FA),
-        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xFFEFEFEF),
+        fontFamily: 'Roboto',
       ),
-      home: const HomeScreen(),
+      home: const AccessibilityScreen(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  static const _categories = [
-    'Pain Relief',
-    'Vitamins',
-    'Baby Care',
-    'Skin Care',
-  ];
-
-  static const _popular = [
-    _MedicineCardData('Panadol Extra', 'EGP 48.00', Icons.medication_rounded),
-    _MedicineCardData('Vitamin C 1000', 'EGP 95.00', Icons.health_and_safety_rounded),
-    _MedicineCardData('Nasal Spray', 'EGP 37.50', Icons.vaccines_rounded),
-  ];
+class AccessibilityScreen extends StatelessWidget {
+  const AccessibilityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pharmax'),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          const _SearchSection(),
-          const SizedBox(height: 20),
-          const _SectionTitle('Categories'),
-          const SizedBox(height: 10),
-          Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: _categories
-                .map(
-                  (category) => Chip(
-                    label: Text(category),
-                    avatar: const Icon(Icons.local_pharmacy_outlined, size: 18),
-                    side: BorderSide.none,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 760),
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: const Color(0xFF1F7A1F), width: 2),
                   ),
-                )
-                .toList(),
-          ),
-          const SizedBox(height: 20),
-          const _SectionTitle('Popular Products'),
-          const SizedBox(height: 10),
-          ..._popular.map((item) => _MedicineCard(data: item)),
-          const SizedBox(height: 20),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart_checkout_rounded),
-            label: const Text('Go to Cart'),
-          ),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: 0,
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.receipt_long_outlined), label: 'Orders'),
-          NavigationDestination(icon: Icon(Icons.person_outline), label: 'Profile'),
-        ],
-      ),
-    );
-  }
-}
-
-class _SearchSection extends StatelessWidget {
-  const _SearchSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Find your medicine quickly',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for medicine, vitamin, or brand',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(14),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        color: const Color(0xFF008A00),
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: const Center(
+                          child: Text(
+                            'Accessibility',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 48,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(20, 14, 20, 0),
+                        child: Text(
+                          'lekaa reda',
+                          style: TextStyle(
+                            color: Color(0xFF7F8A95),
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(90, 54, 90, 40),
+                        child: Column(
+                          children: [
+                            _AccessibilityOptionRow(label: 'Large text'),
+                            SizedBox(height: 30),
+                            _AccessibilityOptionRow(label: 'Voice reminders'),
+                            SizedBox(height: 30),
+                            _AccessibilityOptionRow(label: 'One-tap reorder'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 980),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(72, 0, 72, 28),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _BottomNavItem(letter: 'H', label: 'Home'),
+                            _BottomNavItem(letter: 'O', label: 'Orders'),
+                            _BottomNavItem(letter: 'C', label: 'Chat'),
+                            _BottomNavItem(letter: 'P', label: 'Profile'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle(this.title);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
           ),
-    );
-  }
-}
-
-class _MedicineCard extends StatelessWidget {
-  const _MedicineCard({required this.data});
-
-  final _MedicineCardData data;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 10),
-      child: ListTile(
-        leading: CircleAvatar(
-          child: Icon(data.icon),
-        ),
-        title: Text(data.title),
-        subtitle: Text(data.price),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.add_shopping_cart_rounded),
         ),
       ),
     );
   }
 }
 
-class _MedicineCardData {
-  const _MedicineCardData(this.title, this.price, this.icon);
+class _AccessibilityOptionRow extends StatelessWidget {
+  const _AccessibilityOptionRow({required this.label});
 
-  final String title;
-  final String price;
-  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 44,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(width: 24),
+        Container(
+          width: 52,
+          height: 52,
+          color: const Color(0xFF008A00),
+        ),
+      ],
+    );
+  }
+}
+
+class _BottomNavItem extends StatelessWidget {
+  const _BottomNavItem({required this.letter, required this.label});
+
+  final String letter;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          letter,
+          style: const TextStyle(
+            color: Color(0xFF008A00),
+            fontSize: 44,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+          ),
+        ),
+      ],
+    );
+  }
 }
