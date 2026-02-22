@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const OrderTrackingPaymentScreen(),
+      home: const MedicationScheduleScreen(),
     );
   }
 }
 
-class OrderTrackingPaymentScreen extends StatelessWidget {
-  const OrderTrackingPaymentScreen({super.key});
+class MedicationScheduleScreen extends StatelessWidget {
+  const MedicationScheduleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class OrderTrackingPaymentScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Order Tracking Payment',
+                  'Medication Schedule',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -48,69 +48,59 @@ class OrderTrackingPaymentScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 color: primaryGreen,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-                child: const Text(
-                  'Order tracking',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: const Center(
+                  child: Text(
+                    'Medication Schedule',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(height: 28),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Order #A-5402',
-                  style: TextStyle(
-                    color: Color(0xFF1F1F1F),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+              const _ScheduleCard(
+                period: 'Morning 8:00 AM',
+                meds: ['Paracetamol (500mg)', 'Vitamin C (1 tab)'],
               ),
-              const SizedBox(height: 40),
-              const _StatusStep(label: 'Confirmed', complete: true),
-              const SizedBox(height: 20),
-              const _StatusStep(label: 'Preparing', complete: true),
-              const SizedBox(height: 20),
-              const _StatusStep(label: 'Out for delivery', complete: false),
-              const SizedBox(height: 20),
-              const _StatusStep(label: 'Delivered', complete: false),
-              const SizedBox(height: 10),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Payment',
-                  style: TextStyle(
-                    color: Color(0xFF1F1F1F),
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
+              const SizedBox(height: 22),
+              const _ScheduleCard(
+                period: 'Afternoon 12:00 PM',
+                meds: ['Insulin (10 units)'],
               ),
-              const SizedBox(height: 6),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0xFF8F8F8F), width: 3),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                child: const Text(
-                  'Method: Cash on delivery',
-                  style: TextStyle(
-                    color: Color(0xFF2F2F2F),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+              const SizedBox(height: 22),
+              const _ScheduleCard(
+                period: 'Night 8:00 PM',
+                meds: ['Antibiotic (250mg)'],
               ),
-              const SizedBox(height: 8),
-              const _PrimaryButton(label: 'Switch to Online payment'),
-              const SizedBox(height: 30),
-              const _PrimaryButton(label: 'Contact pharmacy'),
               const Spacer(),
+              SizedBox(
+                width: 300,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryGreen,
+                    foregroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  child: const Text(
+                    'Add Medication',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 36),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _BottomItem(iconText: 'H', label: 'Home'),
+                  _BottomItem(iconText: 'O', label: 'Orders'),
+                  _BottomItem(iconText: 'C', label: 'Chat'),
+                  _BottomItem(iconText: 'P', label: 'Profile'),
+                ],
+              ),
             ],
           ),
         ),
@@ -119,65 +109,101 @@ class OrderTrackingPaymentScreen extends StatelessWidget {
   }
 }
 
-class _StatusStep extends StatelessWidget {
-  const _StatusStep({required this.label, required this.complete});
+class _ScheduleCard extends StatelessWidget {
+  const _ScheduleCard({required this.period, required this.meds});
 
-  final String label;
-  final bool complete;
+  final String period;
+  final List<String> meds;
 
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
 
-    return Row(
-      children: [
-        Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: complete ? primaryGreen : Colors.transparent,
-            border: Border.all(color: primaryGreen, width: 3),
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(top: 16),
+      decoration: BoxDecoration(
+        border: Border.all(color: const Color(0xFFD2D2D2), width: 3),
+      ),
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            period,
+            style: const TextStyle(
+              color: primaryGreen,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        const SizedBox(width: 16),
-        Text(
-          label,
-          style: const TextStyle(
-            color: Color(0xFF2F2F2F),
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
+          const SizedBox(height: 10),
+          ...meds.map(
+            (med) => Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                '- $med',
+                style: const TextStyle(
+                  color: Color(0xFF333333),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: SizedBox(
+              width: 150,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryGreen,
+                  foregroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                ),
+                child: const Text('Taken', style: TextStyle(fontSize: 18)),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-class _PrimaryButton extends StatelessWidget {
-  const _PrimaryButton({required this.label});
+class _BottomItem extends StatelessWidget {
+  const _BottomItem({required this.iconText, required this.label});
 
+  final String iconText;
   final String label;
 
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
 
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryGreen,
-          foregroundColor: Colors.white,
-          shape: const RoundedRectangleBorder(),
-          padding: const EdgeInsets.symmetric(vertical: 16),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          iconText,
+          style: const TextStyle(
+            color: primaryGreen,
+            fontSize: 30,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        child: Text(
+        Text(
           label,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+          style: const TextStyle(
+            color: primaryGreen,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-      ),
+      ],
     );
   }
 }
