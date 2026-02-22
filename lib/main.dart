@@ -19,13 +19,13 @@ class PharmaxApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF2F2F2),
         colorScheme: ColorScheme.fromSeed(seedColor: primaryGreen),
       ),
-      home: const MedicationScheduleScreen(),
+      home: const MedicationDetailsScreen(),
     );
   }
 }
 
-class MedicationScheduleScreen extends StatelessWidget {
-  const MedicationScheduleScreen({super.key});
+class MedicationDetailsScreen extends StatelessWidget {
+  const MedicationDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class MedicationScheduleScreen extends StatelessWidget {
               const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Medication Schedule',
+                  'Medication Details',
                   style: TextStyle(fontSize: 38, fontWeight: FontWeight.w700),
                 ),
               ),
@@ -48,59 +48,66 @@ class MedicationScheduleScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 color: primaryGreen,
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: const Center(
-                  child: Text(
-                    'Medication Schedule',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w500,
-                    ),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                child: const Text(
+                  'Medicine details',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
-              const _ScheduleCard(
-                period: 'Morning 8:00 AM',
-                meds: ['Paracetamol (500mg)', 'Vitamin C (1 tab)'],
-              ),
-              const SizedBox(height: 22),
-              const _ScheduleCard(
-                period: 'Afternoon 12:00 PM',
-                meds: ['Insulin (10 units)'],
-              ),
-              const SizedBox(height: 22),
-              const _ScheduleCard(
-                period: 'Night 8:00 PM',
-                meds: ['Antibiotic (250mg)'],
-              ),
-              const Spacer(),
-              SizedBox(
-                width: 300,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryGreen,
-                    foregroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  child: const Text(
-                    'Add Medication',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              const SizedBox(height: 42),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Metformin 500mg',
+                  style: TextStyle(
+                    color: Color(0xFF1F1F1F),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ),
-              const SizedBox(height: 36),
+              const SizedBox(height: 8),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'For: Diabetes type 2',
+                  style: TextStyle(
+                    color: Color(0xFF7A7A7A),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 14),
+              const _InfoCard(
+                title: 'Dose',
+                body: '1 tablet • twice daily',
+              ),
+              const SizedBox(height: 14),
+              const _InfoCard(
+                title: 'Instructions',
+                body: 'Take with meals',
+              ),
+              const SizedBox(height: 14),
+              const _InfoCard(
+                title: 'Side effects',
+                body: 'Nausea • stomach upset • diarrhea',
+                backgroundColor: Color(0xFFF3E9D7),
+                borderColor: Color(0xFFF0B352),
+              ),
+              const SizedBox(height: 34),
               const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _BottomItem(iconText: 'H', label: 'Home'),
-                  _BottomItem(iconText: 'O', label: 'Orders'),
-                  _BottomItem(iconText: 'C', label: 'Chat'),
-                  _BottomItem(iconText: 'P', label: 'Profile'),
+                  Expanded(child: _PrimaryButton(label: 'Edit schedule')),
+                  SizedBox(width: 12),
+                  Expanded(child: _PrimaryButton(label: 'Ask pharmacist')),
                 ],
               ),
+              const Spacer(),
             ],
           ),
         ),
@@ -109,63 +116,49 @@ class MedicationScheduleScreen extends StatelessWidget {
   }
 }
 
-class _ScheduleCard extends StatelessWidget {
-  const _ScheduleCard({required this.period, required this.meds});
+class _InfoCard extends StatelessWidget {
+  const _InfoCard({
+    required this.title,
+    required this.body,
+    this.backgroundColor,
+    this.borderColor,
+  });
 
-  final String period;
-  final List<String> meds;
+  final String title;
+  final String body;
+  final Color? backgroundColor;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
-    const primaryGreen = Color(0xFF2E8B3C);
-
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(top: 16),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFD2D2D2), width: 3),
+        color: backgroundColor,
+        border: Border.all(
+          color: borderColor ?? const Color(0xFF8F8F8F),
+          width: 3,
+        ),
       ),
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 18),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            period,
+            title,
             style: const TextStyle(
-              color: primaryGreen,
+              color: Color(0xFF1F1F1F),
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            body,
+            style: const TextStyle(
+              color: Color(0xFF2F2F2F),
               fontSize: 20,
               fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 10),
-          ...meds.map(
-            (med) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                '- $med',
-                style: const TextStyle(
-                  color: Color(0xFF333333),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          Align(
-            alignment: Alignment.centerRight,
-            child: SizedBox(
-              width: 150,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryGreen,
-                  foregroundColor: Colors.white,
-                  shape: const RoundedRectangleBorder(),
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                ),
-                child: const Text('Taken', style: TextStyle(fontSize: 18)),
-              ),
             ),
           ),
         ],
@@ -174,36 +167,27 @@ class _ScheduleCard extends StatelessWidget {
   }
 }
 
-class _BottomItem extends StatelessWidget {
-  const _BottomItem({required this.iconText, required this.label});
+class _PrimaryButton extends StatelessWidget {
+  const _PrimaryButton({required this.label});
 
-  final String iconText;
   final String label;
 
   @override
   Widget build(BuildContext context) {
     const primaryGreen = Color(0xFF2E8B3C);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          iconText,
-          style: const TextStyle(
-            color: primaryGreen,
-            fontSize: 30,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        Text(
-          label,
-          style: const TextStyle(
-            color: primaryGreen,
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
+    return ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primaryGreen,
+        foregroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(),
+        padding: const EdgeInsets.symmetric(vertical: 16),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+      ),
     );
   }
 }
